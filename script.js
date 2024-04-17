@@ -5,29 +5,29 @@ const objt = {
         {
             id: 1,
             content: 'Agendar un espacio de 1 hora para brindar feedback al Jefe de sección con relación a los resultados obtenidos en su evaluación de desempeño.',
-                status:1
+            status: 1
         },
         {
             id: 2,
             content: "Agendar espacio de 1 hora para brindar feedback a colaboradores mandos medios ( Jefe de sección,subgerentes, Rs1, administración de tienda)",
-            status:0
+            status: 0
         }
         ,
         {
             id: 2,
             content: "Agendar espacio de 1 hora para brindar feedback a colaboradores mandos medios ( Jefe de sección,subgerentes, Rs1, administración de tienda)",
-            status:0
+            status: 0
         }
         ,
         {
             id: 2,
             content: "Agendar espacio de 1 hora para brindar feedback a colaboradores mandos medios ( Jefe de sección,subgerentes, Rs1, administración de tienda)",
-            status:1
+            status: 1
         }
     ],
     "c4_sub_dimension": "Habilidad Gerencial",
     "c1_id": "XqmRTLX3x2oFL3xZ",
-    "c10_meas_indicator": "Pulso Abril",
+    "c10_meas_indicator": "Clima y Mandela",
     "c15_default": "",
     "c3_dimension": "Credibilidad",
     "c8_responsables": [
@@ -35,7 +35,7 @@ const objt = {
     ],
     "c14_archivo": "empty",
     "c2_dni": "96478932",
-    "c12_date_end": "18/4/2024",
+    "c12_date_end": "19/4/2024",
     "c13_status": 2,
     "c11_date_start": "13/4/2024",
     "c6_title": "Plan de contingencia para la satisfacción del personal",
@@ -47,9 +47,10 @@ const objt = {
 document.addEventListener("DOMContentLoaded", () => {
 
 
-    renderFullViewPlan(objt)
+    // renderFullViewPlan(objt)
+    renderFullViewPlanPartial(objt)
     // carga tippy
-  
+
 
 
 })
@@ -74,7 +75,7 @@ function successTask(e) {
 
 // function append 
 
-function appendChek(){
+function appendChek() {
     // const newEle = document.createElement("div")
     // newEle.className = 'box__finish'
     // newEle.innerHTML = `<i class="finish_check bi bi-check-lg"> <i/>`
@@ -92,94 +93,151 @@ function appendChek(){
 // render function
 
 const statusObj = {
-    1 :'Completado',
-    2:'En progreso',
-    3:'Pendiente'
+    1: 'Completado',
+    2: 'En progreso',
+    3: 'Pendiente'
 }
 
 
-function renderFullViewPlan(data) {
+// function renderFullViewPlan(data) {
+//     const { c3_dimension, c4_sub_dimension, c5_enunciate, c6_title, c7_description, c8_responsables, c9_tasks, c10_meas_indicator, c12_date_end, c13_status } = data
+//     const ChildElement = document.createElement("div")
+//     ChildElement.className = 'box-FullView';
+//     ChildElement.innerHTML = `
+//     <!-- bloque de tiempo liímite -->
+//     <div class="time_FV">
+//         ${checkDate(c12_date_end)}
+//     </div>
+//     <div class="indicator_FV">
+//         <span>
+//             ${c10_meas_indicator}
+//         </span>
+//     </div>
+//     <div class="title_FV">
+//         <h2>${c6_title}</h2>
+//         <div>
+//             ${statusColor(c13_status)}
+//         </div>
+
+//     </div>
+
+//     <div class="box_Dimention_FV">
+
+//         <span class="dimention_FV">
+//             ${c3_dimension}
+//         </span>
+
+//         <span class="subDimention_FV">
+//         ${c4_sub_dimension}
+
+//         </span>
+
+
+//     </div>
+
+//     <!--enunciado -->
+//     <div class="enunciate_FV">
+//         <h3 class="gen_subtitle">Enunciado</h3>
+//         <p>${c5_enunciate}</p>
+//     </div>
+
+//     <div class="description_FV">
+//         <h3 class="gen_subtitle">Descripción</h3>
+//         <p>${c7_description}
+//         </p>
+//     </div>
+
+
+//     <div class="responsables_FV">
+//         <h3 class="gen_subtitle">Responsables</h3>
+//        ${ResponsableBlocks(c8_responsables)}
+
+//     </div>
+
+//     <!-- Tasks -->
+//     <div class="tasks_FV">
+//         <h3 class="gen_subtitle">Tareas</h3>
+//         <!-- tarea -->
+
+//        ${TaskBlocks(c9_tasks)}
+
+//     </div>
+
+//     `
+
+//     // event click
+
+//     ChildElement.querySelectorAll('.button_box_task_FV button').forEach(item => 
+
+//         item.addEventListener('click', successTask)
+//     )
+
+
+
+//     sectionRender.appendChild(ChildElement)
+
+//     tippy('#status_pulse_FV', {
+//         content: statusObj[c13_status],
+//     });
+
+// }
+
+function renderFullViewPlanPartial(data) {
     const { c3_dimension, c4_sub_dimension, c5_enunciate, c6_title, c7_description, c8_responsables, c9_tasks, c10_meas_indicator, c12_date_end, c13_status } = data
-    const ChildElement = document.createElement("div")
-    ChildElement.className = 'box-FullView';
-    ChildElement.innerHTML = `
-    <!-- bloque de tiempo liímite -->
-    <div class="time_FV">
-        ${checkDate(c12_date_end)}
-    </div>
-    <div class="indicator_FV">
-        <span>
-            ${c10_meas_indicator}
-        </span>
-    </div>
-    <div class="title_FV">
-        <h2>${c6_title}</h2>
-        <div>
-            ${statusColor(c13_status)}
-        </div>
+const parentNode = document.getElementById("box-FullView")
+// para la fecha
+const time = parentNode.querySelector(".time_FV")
+time.innerHTML = checkDate(c12_date_end)
+// =================================================================
+//para el indicador
+const indicator = parentNode.querySelector(".indicator_FV span")
+indicator.innerHTML = c10_meas_indicator
+// =================================================================
+//para el titulo
+const titlePlan = parentNode.querySelector(".title_FV h2")
+titlePlan.textContent = c6_title || 'nada'
+// =================================================================
+//para el status
+const status = parentNode.querySelector(".title_FV div")
+status.innerHTML = statusColor(c13_status)
+// =================================================================
+//para la dimension
+const dimention = parentNode.querySelector(".dimention_FV")
+dimention.textContent = c3_dimension || 'nada para mostrar'
+// =================================================================
+//para la subidmiension
+const subDimention = parentNode.querySelector(".subDimention_FV")
+subDimention.textContent = c4_sub_dimension || 'nada para mostrar'
+// =================================================================
+//para el enunciado
+const enunciate = parentNode.querySelector(".enunciate_FV p")
+enunciate.textContent = c5_enunciate
+// =================================================================
+//para la descripción
+const description = parentNode.querySelector(".description_FV p")
+description.textContent = c7_description
+// =================================================================
+//para los responsables
+const responsables = parentNode.querySelector(".responsables_FV")
+responsables.insertAdjacentHTML("beforeend",ResponsableBlocks(c8_responsables))
+// =================================================================
+//para las tareas
+const tasks = parentNode.querySelector(".tasks_FV")
+tasks.insertAdjacentHTML("beforeend",TaskBlocks(c9_tasks))
 
-    </div>
+    tasks.querySelectorAll('.button_box_task_FV button').forEach(item => 
 
-    <div class="box_Dimention_FV">
-
-        <span class="dimention_FV">
-            ${c3_dimension}
-        </span>
-
-        <span class="subDimention_FV">
-        ${c4_sub_dimension}
-
-        </span>
-
-
-    </div>
-
-    <!--enunciado -->
-    <div class="enunciate_FV">
-        <h3 class="gen_subtitle">Enunciado</h3>
-        <p>${c5_enunciate}</p>
-    </div>
-
-    <div class="description_FV">
-        <h3 class="gen_subtitle">Descripción</h3>
-        <p>${c7_description}
-        </p>
-    </div>
-
-
-    <div class="responsables_FV">
-        <h3 class="gen_subtitle">Responsables</h3>
-       ${ResponsableBlocks(c8_responsables)}
-
-    </div>
-
-    <!-- Tasks -->
-    <div class="tasks_FV">
-        <h3 class="gen_subtitle">Tareas</h3>
-        <!-- tarea -->
-
-       ${TaskBlocks(c9_tasks)}
-
-    </div>
-    
-    `
-
-    // event click
-
-    ChildElement.querySelectorAll('.button_box_task_FV button').forEach(item => 
-    
         item.addEventListener('click', successTask)
     )
-
-
-
-    sectionRender.appendChild(ChildElement)
-
+// =================================================================
+// para el tooltip de status
     tippy('#status_pulse_FV', {
         content: statusObj[c13_status],
     });
-
 }
+
+
+
 
 
 function statusColor(status) {
@@ -200,10 +258,10 @@ function statusColor(status) {
             `
     }
 
-   
+
 
     return renderStatus
-    
+
 
 }
 
@@ -216,14 +274,14 @@ function ResponsableBlocks(responsables) {
 function TaskBlocks(task) {
 
     return task.map(item =>
-    
+
         ` <div id="${item.id}" class="task_FV">
         <p>
            ${item.content}
         </p>
     
         <div id="lolaso" class="button_box_task_FV">
-            ${item.status ? appendChek(): `<button class="animate__animated">Terminar</button>`}
+            ${item.status ? appendChek() : `<button class="animate__animated">Terminar</button>`}
     
         </div>
     </div>`).join(" ")
@@ -234,34 +292,34 @@ function checkDate(endDate) {
 
     const timeZone = 'America/Lima';
 
-// // Fechas de inicio y fin
-// const startDate = '14/04/2024';
-// const endDate = '15/04/2024';
+    // // Fechas de inicio y fin
+    // const startDate = '14/04/2024';
+    // const endDate = '15/04/2024';
 
-// // Crear objetos Moment para las fechas
-// const start = moment(startDate, 'DD/MM/YYYY').tz(timeZone);
-const end = moment(endDate, 'DD/MM/YYYY');
+    // // Crear objetos Moment para las fechas
+    // const start = moment(startDate, 'DD/MM/YYYY').tz(timeZone);
+    const end = moment(endDate, 'DD/MM/YYYY');
 
-const today = moment()
+    const today = moment()
 
-// Opciones para personalizar el método calendar()
-const calendarOptions = {
-    sameDay: '[Plan disponible hasta hoy]',
-    nextDay: '[Plan disponible hasta mañana]',
-    nextWeek: '[Plan disponible hasta el ] dddd DD [de] MMMM',
-    lastDay: '[El plan se encuentra atrasado]',
-    sameElse: '[Plan disponible hasta el] DD [de] MMMM'
-  };
-  
-  // Verifica si la promoción ya terminó
-  
+    // Opciones para personalizar el método calendar()
+    const calendarOptions = {
+        sameDay: '[Plan disponible hasta hoy]',
+        nextDay: '[Plan disponible hasta mañana]',
+        nextWeek: '[Plan disponible hasta el ] dddd DD [de] MMMM',
+        lastDay: '[El plan se encuentra atrasado]',
+        sameElse: '[Plan disponible hasta el] DD [de] MMMM'
+    };
+
+    // Verifica si la promoción ya terminó
+
     const calendarDescription = end.calendar(today, calendarOptions);
     console.log(calendarDescription);
 
     return calendarDescription;
-  
 
-    
+
+
 }
 
 

@@ -134,6 +134,7 @@ body {
 
 /* pulse animation */
 .circle {
+    cursor: pointer;
     margin-top: 8px;
     width: 12px !important;
     height: 12px;
